@@ -1,0 +1,203 @@
+:root {
+    --primary-bg-color: #f2f2f2; /* Light gray background for the page */
+    --nav-bg-color: #333; /* Dark background for the navigation bar */
+    --nav-text-color: #fff; /* White text color for the navigation bar */
+    --modal-bg-color: #fff; /* White background for the modal */
+    --modal-text-color: #333; /* Dark gray text color for the modal */
+    --label-text-color: #555; /* Slightly lighter text color for labels */
+    --input-border-color: #ccc; /* Light gray border for input fields */
+    --button-bg-color: #007BFF; /* Blue button background color */
+    --button-hover-color: #0056b3; /* Darker blue on button hover */
+    --close-button-bg-color: #ccc; /* Light gray background for the Close button */
+    --close-button-hover-color: #999; /* Slightly darker background for Close button hover */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary-bg-color);
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: var(--nav-bg-color);
+    color: var(--nav-text-color);
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+nav h1 {
+    font-size: 1.5rem;
+}
+
+#add-book {
+    display: block;
+    margin: 20px auto;
+    background-color: var(--button-bg-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#add-book:hover {
+    background-color: var(--button-hover-color);
+}
+
+.modal {
+    padding: 20px;
+    background-color: var(--modal-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    max-width: 400px;
+    color: var(--modal-text-color);
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.modal::backdrop {
+    background: linear-gradient(
+        45deg,
+        red,
+        white,
+        blue
+    );
+    opacity: 0.4;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--modal-text-color);
+}
+
+label {
+    font-weight: bold;
+    color: var(--label-text-color);
+}
+input[type="text"],
+input[type="number"]{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+#read-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--label-text-color);
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+button {
+    background-color: var(--button-bg-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--button-hover-color);
+}
+
+#close-button {
+    background-color: var(--close-button-bg-color);
+    color: var(--modal-text-color);
+    margin-top: 1rem;
+}
+#close-button:hover {
+    background-color: var(--close-button-hover-color);
+}
+
+#bookshelf {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+    gap: 1.2rem;
+    width: 100vw;
+    padding: 10px;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 6px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.book p {
+    font-size: 1rem;
+    margin: 8px auto;
+    color: #333;
+}
+
+.book .bookButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.book .bookRead {
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book .readBook {
+    background-color: lightgreen;
+    color: #fff;
+}
+.book .readBook:hover {
+    background-color: darkgreen;
+}
+.book .unreadBook {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.book .unreadBook:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.book .removeBook:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 640px){
+    #bookshelf {
+        width: 300px;
+        margin: 0 auto;
+    }
+}
