@@ -1,16 +1,5 @@
-let mb = new Book(
-    "Steven",
-    "Tester's Grave",
-    616,
-    true
-)
-let mb2 = new Book(
-    "Lincoln",
-    "My Bullet, My Heart",
-    666,
-    false
-)
-const myLibrary = [mb, mb2];
+
+const myLibrary = [];
 
 const modal = document.querySelector("#modal");
 const openModal = document.querySelector("#add-book");
