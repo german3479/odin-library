@@ -37,6 +37,12 @@ nav h1 {
     display: inline;
 }
 
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
 #add-book {
     display: block;
     margin: 20px auto;
@@ -57,11 +63,12 @@ nav h1 {
     background-color: var(--modal-bg-color);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    position: absolute;
+    position: fixed;
     top: 50%;
-    transform: translateY(-50%);
-    margin: 0 auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
     max-width: 400px;
+    width: 90%;
     color: var(--modal-text-color);
 }
 
@@ -135,7 +142,7 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     gap: 1.2rem;
-    width: 100vw;
+    width: 100%;
     padding: 10px;
 }
 
@@ -145,7 +152,6 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 12px;
-    margin: 6px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
@@ -154,6 +160,7 @@ button:hover {
     font-size: 1rem;
     margin: 8px auto;
     color: #333;
+    overflow-wrap: break-word;
 }
 
 .book .bookButtons {
@@ -174,14 +181,14 @@ button:hover {
 
 .book .readBook {
     background-color: lightgreen;
-    color: #fff;
+    color: #1a1a1a;
 }
 .book .readBook:hover {
     background-color: darkgreen;
 }
 .book .unreadBook {
     background-color: #ff6b6b;
-    color: #fff;
+    color: #1a1a1a;
     border: none;
     padding: 8px;
     border-radius: 4px;

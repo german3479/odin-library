@@ -10,18 +10,20 @@ const bookForm = document.querySelector("#book-form");
 const bookshelf = document.querySelector("#bookshelf");
 
 function Book(author, title, numPages, read = false){
-    return {
-        author,
-        title,
-        numPages,
-        read,
-        toggleReadStatus(){
-            this.read = !this.read;
-        }
-    }
+    this.id = crypto.randomUUID();
+    this.author = author;
+    this.title = title;
+    this.numPages = numPages;
+    this.read = read;
 }
 
-function addBookToLibrary(book){
+Book.prototype.toggleReadStatus = function(){
+    this.read = !this.read;
+}
+
+function addBookToLibrary(author, title, numPages, read){
+    const book = new Book(author, title, numPages, read);
+
     myLibrary.push(book);
 
     bookshelf.innerHTML = "";
@@ -34,27 +36,47 @@ function populateGrid(){
         const newDiv = document.createElement('div');
         newDiv.classList.add('book');
 
-        newDiv.innerHTML = `
-        <p>${book.title}</p>
-        <p>${book.author}</p>
-        <p>${book.numPages}</p>
-        <div class="bookButtons">
-            <button class="bookRead ${book.read ? 'readBook' : 'unreadBook'}" data-index="${myLibrary.indexOf(book)}">${book.read ? "Read" : "Unread"}</button>
-            <button class="removeBook" data-index="${myLibrary.indexOf(book)}">Remove</button>
-        </div>
-        `
+        const titleP = document.createElement('p');
+        titleP.textContent = book.title;
+        const authorP = document.createElement('p');
+        authorP.textContent = book.author;
+        const pagesP = document.createElement('p');
+        pagesP.textContent = book.numPages;
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.classList.add('bookButtons');
+
+        const readBtn = document.createElement('button');
+        readBtn.classList.add('bookRead');
+        readBtn.classList.add(book.read ? 'readBook' : 'unreadBook');
+        readBtn.dataset.id = book.id;
+        readBtn.textContent = book.read ? "Read" : "Unread";
+
+        const removeBtn = document.createElement('button');
+        removeBtn.classList.add('removeBook');
+        removeBtn.dataset.id = book.id;
+        removeBtn.textContent = "Remove";
+
+        buttonsDiv.appendChild(readBtn);
+        buttonsDiv.appendChild(removeBtn);
+
+        newDiv.appendChild(titleP);
+        newDiv.appendChild(authorP);
+        newDiv.appendChild(pagesP);
+        newDiv.appendChild(buttonsDiv);
 
         newDiv.querySelector(".bookRead").addEventListener('click', (e)=>{
-            const index = e.target.dataset.index;
-            myLibrary[index].toggleReadStatus();
+            const id = e.target.dataset.id;
+            const book = myLibrary.find(b => b.id === id);
+            book.toggleReadStatus();
 
             const item = e.target;
 
-            item.className = `bookRead ${myLibrary[index].read ? 'readBook' : 'unreadBook'}`
-            item.textContent = myLibrary[index].read ? 'Read' : 'Unread';
+            item.className = `bookRead ${book.read ? 'readBook': 'unreadBook'}`
+            item.textContent = book.read ? 'Read' : 'Unread';
         })
         newDiv.querySelector(".removeBook").addEventListener('click', (e)=>{
-            const index = e.target.dataset.index;
+            const id = e.target.dataset.id;
+            const index = myLibrary.findIndex(b => b.id === id);
             myLibrary.splice(index, 1);
             populateGrid();
         })
@@ -80,9 +102,7 @@ bookForm.addEventListener('submit', e =>{
     const pages = data.querySelector("#pages").value;
     const read = data.querySelector("#read").checked;
 
-    const bookToAdd = new Book(author, title, pages, read);
-
-    addBookToLibrary(bookToAdd);
+    addBookToLibrary(author, title, pages, read);
 
     data.reset();
 })
